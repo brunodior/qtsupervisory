@@ -9,70 +9,85 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 
     ui->setupUi(this);
+    timer = new QTimer(this);
+    timer->setInterval(intervalT);
     socket = new QTcpSocket(this);
     tcpConnect();
 
-    //botão start
-    connect(ui->pushButton_Start,
+    //EVENTO DE CLICAR NO BOTAO DE PEGAR OS DADOS
+    connect(ui->startButton,
           SIGNAL(clicked()),
           this,
           SLOT(getData()));
 
-    //botão stop
-    connect(ui->pushButton_Stop,
+   //EVENTO DE CLICAR NO BOTAO DE PARAR O TEMPO
+    connect(ui->stopButton,
           SIGNAL(clicked()),
           this,
-          SLOT(timerStop()));
+          SLOT(stopTimer()));
 
-    //tcp conectado:
-    connect(ui->pushButton_Connect,
+    //EVENTO DE CLICAR PARA CONECTAR O TCP
+    connect(ui->connectButton,
           SIGNAL(clicked()),
           SLOT(tcpConnect()));
 
-    //tcp desconectado:
-    connect(ui->pushButton_Disconnect,
+    //EVENTO DE CLICAR PARA DESCONECTAR O TCP
+    connect(ui->disconnectButton,
           SIGNAL(clicked()),
           SLOT(tcpDisconnect()));
 
-    //Slider de tempo
+    //EVENTO DE PEGAR O VALOR DO SLIDER
     connect(ui->horizontalSlider_Timing,
           SIGNAL(valueChanged(int)),
-          ui->label_TimingVariavel,
+          ui->intervalTimer,
           SLOT(setNum(int)));
 
-    //Criando variável do intervalo de tempo
-    connect(ui->horizontalSlider_Timing,
-          SIGNAL(valueChanged(int)),
-          this,
-          SLOT(valorInterv(int)));
-
-    Temp = new QTimer(this);
-    Temp->setInterval(interv);
-    //intervalo start
-    connect(Temp,
-          SIGNAL(timeout()),
-          this,
-          SLOT(timerEvent()));
-
-
-    connect(ui->pushButton_Update,
+    //EVENTO DE UPDATE DE IP
+    connect(ui->updateButton,
           SIGNAL(clicked()),
           this,
           SLOT(updateIp()));
 
-    connect(ui->pushButton_Start,
+    //EVENTO DE CRIAR VARIAVEL DE INTERVALO DE TEMPO
+    connect(ui->horizontalSlider_Timing,
+          SIGNAL(valueChanged(int)),
+          this,
+          SLOT(valorInterv(int))); 
+
+    //EVENTO DE INICIAR O INTERVALO
+    connect(timer,
+          SIGNAL(timeout()),
+          this,
+          SLOT(timerEvent()));
+
+    //EVENTO SE CLICAR NO START
+    connect(ui->startButton,
             SIGNAL(clicked()),
             this,
-            SLOT(buttonStart()));
+            SLOT(startButton()));
 
-    connect(Temp,
+    //EVENTO SE ALTERAR O TIMER
+    connect(timer,
             SIGNAL(timeout()),
             this,
-            SLOT(buttonStart()));
+            SLOT(startButton()));
 }
 
+
+//DESTRUTOR
+MainWindow::~MainWindow()
+{
+    delete socket;
+    delete ui;
+}
+
+void MainWindow::timerEvent(){
+    getData();
+}
+
+//FUNCAO CONECTAR NO SERVIDOR
 void MainWindow::tcpConnect(){
-    socket->connectToHost(ui->lineEdit_ipServ->text(),1234);
+    socket->connectToHost(ui->ipServer->text(),1234);
 
     if(socket->waitForConnected(3000)){
       qDebug() << "Connected";
@@ -83,27 +98,27 @@ void MainWindow::tcpConnect(){
       statusBar()->showMessage("Disconnected");
     }
 }
+
+//FUNCAO DESCONECTAR DO SERVIDOR
 void MainWindow::tcpDisconnect(){
     socket->disconnectFromHost();
     statusBar()->showMessage("Disconnected");
 }
 
-void MainWindow::valorInterv(int inteiro){
-    interv = inteiro*500;
-    Temp->setInterval(interv);
-}
 
+
+//FUNCAO DE PEGAR OS DADOS
 void MainWindow::getData(){
-    Temp->start();
+    timer->start();
     QString str;
     QByteArray array;
     QStringList list;
     qint64 thetime;
+
     qDebug() << "to get data...";
     QHostAddress ipAddress = socket->peerAddress();
     QString ipString = ipAddress.toString();
 
-    // Atualizando a listas de IP's sem repetir.
     if(ipList.contains(ipString)){
 
     }else{
@@ -132,34 +147,36 @@ void MainWindow::getData(){
           str = list.at(1);
           qDebug() << thetime << ": " << str;
         }
+        value = list.at(1).toInt();
+        qDebug() << value << "\n";
 
-        valores = list.at(1).toInt();
-        qDebug() << valores << "\n";
-        //ui->listWidget_maquinas->addItem();
       }
     }
     }
 }
 
 
-MainWindow::~MainWindow()
-{
-    delete socket;
-    delete ui;
-}
-void MainWindow::timerEvent(){
-    getData();
-}
+//FUNCAO DE ATUALIZAR O IP
 void MainWindow::updateIp(){
-    //ui->listWidget_maquinas->addItem(*valores);
-    //ui->listWidget_maquinas->addItem(ui->lineEdit_ipServ->text());
-    ui->listWidget_maquinas->clear();
-    ui->listWidget_maquinas->addItems(ipList);
+    ui->listMaquinas->clear();
+    ui->listMaquinas->addItems(ipList);
 }
 
-void MainWindow::buttonStart(){
-    ui->widget1->setValor(valores);
+//FUNCAO DE PARAR O TEMPO
+void MainWindow::stopTimer(){
+    qDebug() << "reading...";
+    timer->stop();
 }
-void MainWindow::timerStop(){
-    Temp->stop();
+
+//FUNCAO DE PEGAR O VALOR DO INTERVALO DO TIMER
+void MainWindow::intervalTimer(int TimerInt){
+    intervalT = TimerInt*1000;
+    timer->setInterval(intervalT);
 }
+
+//FUNCAO DE ADICIONAR VALOR NO WIDGET
+void MainWindow::startButton(){
+    ui->widget->setValor(value);
+}
+
+

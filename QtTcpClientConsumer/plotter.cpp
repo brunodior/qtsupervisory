@@ -14,7 +14,7 @@ void Plotter::paintEvent(QPaintEvent *event){
     QPainter painter(this);
     QBrush brush;
     QPen pen;
-    //QLineF lin;
+
     int x1, y1, x2, y2;
     brush.setColor(QColor(250,250,10));
     brush.setStyle(Qt::SolidPattern);
@@ -36,12 +36,6 @@ void Plotter::paintEvent(QPaintEvent *event){
 
     x1 = 0;
     y1 = height;
-    //y2 = 1;
-    //double m = (double)(height - y2) / (double)width;
-
-
-
-
 
     for(int i = 0; i< valor.size(); i++){
         x2 = i * xScale;
@@ -59,7 +53,6 @@ void Plotter::paintEvent(QPaintEvent *event){
     }
 
 }
-
 
 void Plotter::setValor(int _valor)
 {

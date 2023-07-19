@@ -30,20 +30,32 @@ MainWindow::MainWindow(QWidget *parent) :
           );
 }
 
-//FUNCAO CONECTAR AO SERVICDOR
-void MainWindow::tcpConnect(){
-  socket->connectToHost(ui->ip->text(),1234);
-  if(socket->waitForConnected(3000)){
-      qDebug() << "Connected";
-      ui->status->setText("Conectado");
-  }
-  else{
-    qDebug() << "Disconnected";
-  }
+//DESTRUTOR
+MainWindow::~MainWindow(){
+    delete socket;
+    delete ui;
 }
 
 
-//FUNCAO PEGAR DADOS
+void MainWindow::timerEvent(QTimerEvent *event){
+    putData();
+}
+
+
+
+//CLICK PRA CONECTAR COM SERVIDOR
+void MainWindow::on_connect_clicked()
+{
+    tcpConnect();
+}
+
+//FUNCAO PRA DESCONECTAR
+void MainWindow::on_disconnect_clicked(){
+    socket->disconnectFromHost();
+    ui->status->setText("Desconectado");
+}
+
+//FUNCAO COLOCAR NA TABELA DADOS
 void MainWindow::putData(){
   QDateTime datetime;
   QString str;
@@ -67,35 +79,6 @@ void MainWindow::putData(){
   }
 }
 
-//CLICK PRA CONECTAR COM SERVIDOR
-void MainWindow::on_connect_clicked()
-{
-    tcpConnect();
-}
-
-//FUNCAO PRA DESCONECTAR
-void MainWindow::on_disconnect_clicked(){
-    socket->disconnectFromHost();
-    ui->status->setText("Desconectado");
-}
-
-void MainWindow::timerEvent(QTimerEvent *event){
-    putData();
-}
-
-//FUNCAO COMECAR TEMPO
-void MainWindow::start_temp(){
-    int timerSeg = 1000*ui->barraTimer->value();
-    temporizador = startTimer(timerSeg);
-    ui->status2->setText("Start");
-}
-
-
-//FUNCAO PARAR TEMPO
-void MainWindow::stop_temp(){
-    killTimer(temporizador);
-    ui->status2->setText("Stop");
-}
 
 //PEGAR O VALOR DO MINIMO
 void MainWindow::on_barraMin_valueChanged(int value)
@@ -115,8 +98,29 @@ void MainWindow::on_barraTimer_valueChanged(int value)
     ui->intervalTimer->setText(QString::number(value));
 }
 
-//DESTRUTOR
-MainWindow::~MainWindow(){
-    delete socket;
-    delete ui;
+//FUNCAO COMECAR TEMPO
+void MainWindow::start_temp(){
+    int timerSeg = 1000*ui->barraTimer->value();
+    temporizador = startTimer(timerSeg);
+    ui->status2->setText("Start");
 }
+
+//FUNCAO PARAR TEMPO
+void MainWindow::stop_temp(){
+    killTimer(temporizador);
+    ui->status2->setText("Stop");
+}
+
+//FUNCAO CONECTAR AO SERVICDOR
+void MainWindow::tcpConnect(){
+  socket->connectToHost(ui->ip->text(),1234);
+  if(socket->waitForConnected(3000)){
+      qDebug() << "Connected";
+      ui->status->setText("Conectado");
+  }
+  else{
+    qDebug() << "Disconnected";
+  }
+}
+
+

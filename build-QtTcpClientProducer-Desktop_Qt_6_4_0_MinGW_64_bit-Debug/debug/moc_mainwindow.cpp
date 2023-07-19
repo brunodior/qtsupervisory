@@ -28,53 +28,53 @@ namespace {
 struct qt_meta_stringdata_MainWindow_t {
     uint offsetsAndSizes[28];
     char stringdata0[11];
-    char stringdata1[8];
+    char stringdata1[10];
     char stringdata2[1];
     char stringdata3[11];
-    char stringdata4[13];
-    char stringdata5[6];
-    char stringdata6[11];
-    char stringdata7[10];
-    char stringdata8[19];
-    char stringdata9[22];
+    char stringdata4[8];
+    char stringdata5[11];
+    char stringdata6[13];
+    char stringdata7[6];
+    char stringdata8[25];
+    char stringdata9[6];
     char stringdata10[25];
-    char stringdata11[6];
-    char stringdata12[25];
-    char stringdata13[27];
+    char stringdata11[27];
+    char stringdata12[19];
+    char stringdata13[22];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_MainWindow_t::offsetsAndSizes) + ofs), len 
 Q_CONSTINIT static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
         QT_MOC_LITERAL(0, 10),  // "MainWindow"
-        QT_MOC_LITERAL(11, 7),  // "putData"
-        QT_MOC_LITERAL(19, 0),  // ""
-        QT_MOC_LITERAL(20, 10),  // "timerEvent"
-        QT_MOC_LITERAL(31, 12),  // "QTimerEvent*"
-        QT_MOC_LITERAL(44, 5),  // "event"
-        QT_MOC_LITERAL(50, 10),  // "start_temp"
-        QT_MOC_LITERAL(61, 9),  // "stop_temp"
-        QT_MOC_LITERAL(71, 18),  // "on_connect_clicked"
-        QT_MOC_LITERAL(90, 21),  // "on_disconnect_clicked"
-        QT_MOC_LITERAL(112, 24),  // "on_barraMin_valueChanged"
-        QT_MOC_LITERAL(137, 5),  // "value"
-        QT_MOC_LITERAL(143, 24),  // "on_barraMax_valueChanged"
-        QT_MOC_LITERAL(168, 26)   // "on_barraTimer_valueChanged"
+        QT_MOC_LITERAL(11, 9),  // "stop_temp"
+        QT_MOC_LITERAL(21, 0),  // ""
+        QT_MOC_LITERAL(22, 10),  // "start_temp"
+        QT_MOC_LITERAL(33, 7),  // "putData"
+        QT_MOC_LITERAL(41, 10),  // "timerEvent"
+        QT_MOC_LITERAL(52, 12),  // "QTimerEvent*"
+        QT_MOC_LITERAL(65, 5),  // "event"
+        QT_MOC_LITERAL(71, 24),  // "on_barraMin_valueChanged"
+        QT_MOC_LITERAL(96, 5),  // "value"
+        QT_MOC_LITERAL(102, 24),  // "on_barraMax_valueChanged"
+        QT_MOC_LITERAL(127, 26),  // "on_barraTimer_valueChanged"
+        QT_MOC_LITERAL(154, 18),  // "on_connect_clicked"
+        QT_MOC_LITERAL(173, 21)   // "on_disconnect_clicked"
     },
     "MainWindow",
-    "putData",
+    "stop_temp",
     "",
+    "start_temp",
+    "putData",
     "timerEvent",
     "QTimerEvent*",
     "event",
-    "start_temp",
-    "stop_temp",
-    "on_connect_clicked",
-    "on_disconnect_clicked",
     "on_barraMin_valueChanged",
     "value",
     "on_barraMax_valueChanged",
-    "on_barraTimer_valueChanged"
+    "on_barraTimer_valueChanged",
+    "on_connect_clicked",
+    "on_disconnect_clicked"
 };
 #undef QT_MOC_LITERAL
 } // unnamed namespace
@@ -94,25 +94,25 @@ Q_CONSTINIT static const uint qt_meta_data_MainWindow[] = {
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
        1,    0,   68,    2, 0x0a,    1 /* Public */,
-       3,    1,   69,    2, 0x0a,    2 /* Public */,
-       6,    0,   72,    2, 0x0a,    4 /* Public */,
-       7,    0,   73,    2, 0x0a,    5 /* Public */,
-       8,    0,   74,    2, 0x08,    6 /* Private */,
-       9,    0,   75,    2, 0x08,    7 /* Private */,
-      10,    1,   76,    2, 0x08,    8 /* Private */,
-      12,    1,   79,    2, 0x08,   10 /* Private */,
-      13,    1,   82,    2, 0x08,   12 /* Private */,
+       3,    0,   69,    2, 0x0a,    2 /* Public */,
+       4,    0,   70,    2, 0x0a,    3 /* Public */,
+       5,    1,   71,    2, 0x0a,    4 /* Public */,
+       8,    1,   74,    2, 0x08,    6 /* Private */,
+      10,    1,   77,    2, 0x08,    8 /* Private */,
+      11,    1,   80,    2, 0x08,   10 /* Private */,
+      12,    0,   83,    2, 0x08,   12 /* Private */,
+      13,    0,   84,    2, 0x08,   13 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 4,    5,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 6,    7,
+    QMetaType::Void, QMetaType::Int,    9,
+    QMetaType::Void, QMetaType::Int,    9,
+    QMetaType::Void, QMetaType::Int,    9,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   11,
-    QMetaType::Void, QMetaType::Int,   11,
-    QMetaType::Void, QMetaType::Int,   11,
 
        0        // eod
 };
@@ -126,19 +126,15 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_MainWindow_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>,
+        // method 'stop_temp'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'start_temp'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'putData'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'timerEvent'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<QTimerEvent *, std::false_type>,
-        // method 'start_temp'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'stop_temp'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'on_connect_clicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'on_disconnect_clicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_barraMin_valueChanged'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
@@ -147,7 +143,11 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
         // method 'on_barraTimer_valueChanged'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'on_connect_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_disconnect_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
 } };
@@ -158,15 +158,15 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         auto *_t = static_cast<MainWindow *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->putData(); break;
-        case 1: _t->timerEvent((*reinterpret_cast< std::add_pointer_t<QTimerEvent*>>(_a[1]))); break;
-        case 2: _t->start_temp(); break;
-        case 3: _t->stop_temp(); break;
-        case 4: _t->on_connect_clicked(); break;
-        case 5: _t->on_disconnect_clicked(); break;
-        case 6: _t->on_barraMin_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 7: _t->on_barraMax_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 8: _t->on_barraTimer_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 0: _t->stop_temp(); break;
+        case 1: _t->start_temp(); break;
+        case 2: _t->putData(); break;
+        case 3: _t->timerEvent((*reinterpret_cast< std::add_pointer_t<QTimerEvent*>>(_a[1]))); break;
+        case 4: _t->on_barraMin_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 5: _t->on_barraMax_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 6: _t->on_barraTimer_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 7: _t->on_connect_clicked(); break;
+        case 8: _t->on_disconnect_clicked(); break;
         default: ;
         }
     }
